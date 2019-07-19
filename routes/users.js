@@ -21,8 +21,13 @@ router.get('/get/findArticles',function(req,res){
   console.log(title);
   Article.find({title: title},function(err,result){
     if(err) throw err;
-    console.log(result); 
-    res.send(result);
+    if(result != null){
+      console.log(result);
+      res.send(result);
+    }else{
+      console(result);
+      res.status(404).send({"msg":"제목 관련한 게시글이 없습니다."})
+    }
   });
 });
 
@@ -59,7 +64,7 @@ router.post('/post/user',function(req,res) {
           const user = new User({
             id: id,
             passwd: passwd,
-            email: email
+            email: email,
           })
           user.save(function(err,result){
             if(err) throw err;
