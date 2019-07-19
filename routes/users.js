@@ -93,7 +93,8 @@ router.post('/post/article',function(req,res){
   });
   console.log(date.getHours());
   User.find({id:id},function(err,result){
-    if(result == null){
+    if(result != null){
+      //for(var i=0;i<result.length;i++)
       //User.article.push(article.title, article.text);
       article.save(function(err,result){
         if(err) throw err;
