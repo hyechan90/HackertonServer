@@ -37,16 +37,19 @@ router.get('/get/comments',function(req,res){
 });
 
 router.post('/post/user',function(req,res) {
-  let user = new User({
-    id: req.body.id,
-    passwd: req.body.passwd,
-    email: req.body.email
-  });
-  User.findOne({email: user.email}, function(err,result){
+  let id = req.body.id;
+  let passwd = req.body.passwd;
+  let email = req.body.email;
+  User.findOne({email: email}, function(err,result){
     if(result == null){
-      User.findOne({id:user.id},function(err,result){
+      User.findOne({id:id},function(err,result){
         if(err) throw err;
         if(result == null){//새로 만들때
+          const user = new User({
+            id: id,
+            passwd: passwd,
+            email: email
+          })
           user.save(function(err,result){
             if(err) throw err;
             console.log(result)
