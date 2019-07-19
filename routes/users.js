@@ -25,7 +25,7 @@ router.get('/get/findArticles',function(req,res){
       console.log(result);
       res.send(result);
     }else{
-      console(result);
+      console('제목 관려한 게시글이 없습니다.');
       res.status(404).send({"msg":"제목 관련한 게시글이 없습니다."})
     }
   });
@@ -42,11 +42,17 @@ router.get('/get/comments',function(req,res){
 });
 
 router.get('/get/options',function(req,res){
-  var option = req.query.option;
-  Article.find({option:option}).sort({date:-1}).exec(function(err,result){
+  var option = req.query.option;//option을 url로 받음
+  Article.find({option:option}).sort({date:-1}).exec(function(err,result){//최신순으로
     if(err) throw err;
-    console.log(result);
-    res.send(result);
+    if(result != null){
+      console.log(result);
+      res.send(result);
+    }
+    else{
+      console.log('그 옵션을 갖진 게시글이 없습니다.');
+      res.status(404).send({"msg":"그 옵션을 갖진 게시글이 없습니다."});
+    }
   });
 });
 
@@ -73,12 +79,12 @@ router.post('/post/user',function(req,res) {
           });
         }else{// 이미 계정이 있을때
           console.log('이미 사용 중인 아이디가 있습니다.');
-          res.status(404).send({"msg": "이미 아이디가 있습니다."});
+          res.status(404).send({"msg": "이미 사용 중인 아이디가 있습니다."});
         }
       });
     }else{
-      console.log('이미 계정이 있습니다.');
-      res.status(404).send({"msg": "이미 계정이 있습니다."});
+      console.log('이미 사용 중인 계정이 있습니다.');
+      res.status(404).send({"msg": "이미 사용 중인 계정이 있습니다."});
     }
   });
 });
@@ -92,14 +98,14 @@ router.post('/post/login',function(req,res){
     if(err) throw err;
     if(result != null){// 만약 계정이 있을 때
       if(result.passwd != login.passwd){// 만약 비밀번호가 틀렸을 때
-        console.log('Wrong password');
+        console.log('잘못된 비번입니다.');
         res.status(404).send({"msg": "잘못된 비번입니다."});
       }else{
         console.log(result);
         res.send(result);
       }
     }else{
-      console.log('No user');
+      console.log('없는 계정입니다.');
       res.status(404).send({"msg": "없는 계정입니다."});
     }
   });
@@ -142,7 +148,7 @@ router.post('/post/comment',function(req,res){
       });
     }
     else{
-      console.log('No article');
+      console.log('없는 게시물입니다.');
       res.status(404).send({"msg": "없는 계시물입니다."});
     }
   });
@@ -160,7 +166,7 @@ router.post('/post/deleteUser',function(req,res){
         res.send(result);
       });
     }else{
-      console.log('Wrong password');
+      console.log('잘못된 비번입니다.');
       res.status(404).send({"msg": "잘못된 비번입니다."});
     }
   });
