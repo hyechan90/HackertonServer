@@ -76,7 +76,7 @@ router.post('/post/login',function(req,res){
   });
   User.findOne({id:login.id},function(err,result){
     if(err) throw err;
-
+    console.log(result);
     if(result != null){// 만약 계정이 있을 때
       if(result.passwd != login.passwd){// 만약 비밀번호가 틀렸을 때
         console.log('Wrong password');
