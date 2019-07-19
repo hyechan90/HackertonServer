@@ -36,6 +36,15 @@ router.get('/get/comments',function(req,res){
   });
 });
 
+router.get('/get/options',function(req,res){
+  var option = req.query.option;
+  Article.find({option:option}).sort({date:-1}).exec(function(err,result){
+    if(err) throw err;
+    console.log(result);
+    res.send(result);
+  });
+});
+
 router.post('/post/user',function(req,res) {
   console.log(req.body);
   let id = req.body.id;
