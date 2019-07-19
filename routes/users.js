@@ -53,13 +53,13 @@ router.post('/post/user',function(req,res) {
             res.send(result);
           });
         }else{// 이미 계정이 있을때
-          console.log('이미 계정이 있습니다.');
-          res.send(null);
+          console.log('이미 아이디가 있습니다.');
+          res.status(404).send({"msg": "이미 아이디가 있습니다."});
         }
       });
     }else{
       console.log('이미 계정이 있습니다.');
-      res.send(null);
+      res.status(404).send({"msg": "이미 계정이 있습니다."});
     }
   });
 });
