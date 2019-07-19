@@ -37,10 +37,12 @@ router.get('/get/comments',function(req,res){
 });
 
 router.post('/post/user',function(req,res) {
+  console.log(req.body);
   let id = req.body.id;
   let passwd = req.body.passwd;
   let email = req.body.email;
   User.findOne({email: email}, function(err,result){
+    if(err) throw err;
     if(result == null){
       User.findOne({id:id},function(err,result){
         if(err) throw err;
