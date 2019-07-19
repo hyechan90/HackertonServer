@@ -120,6 +120,7 @@ router.post('/post/article',function(req,res){
     text: req.body.text,
     option: req.body.option,
     date: date,
+    key: 0
   });
   console.log(date.getHours());
   User.find({id:id},function(err,result){

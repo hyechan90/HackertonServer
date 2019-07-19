@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/user');
+mongoose.connect('mongodb://localhost:27017/user',{useNewUrlParser:true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console,'Connection Error:'));
 db.once('open',function callback(){
@@ -13,7 +13,8 @@ Article.add({
     text: String,
     comment: [String],
     date:Date,
-    option:String
+    option:String,
+    key: Number,
 });
 var articleModel = mongoose.model('article', Article);
 exports.Article = articleModel;
