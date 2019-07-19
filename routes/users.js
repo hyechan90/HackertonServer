@@ -58,7 +58,7 @@ router.post('/post/user',function(req,res) {
             res.send(result);
           });
         }else{// 이미 계정이 있을때
-          console.log('이미 아이디가 있습니다.');
+          console.log('이미 사용 중인 아이디가 있습니다.');
           res.status(404).send({"msg": "이미 아이디가 있습니다."});
         }
       });
@@ -76,7 +76,6 @@ router.post('/post/login',function(req,res){
   });
   User.findOne({id:login.id},function(err,result){
     if(err) throw err;
-    console.log(result);
     if(result != null){// 만약 계정이 있을 때
       if(result.passwd != login.passwd){// 만약 비밀번호가 틀렸을 때
         console.log('Wrong password');
