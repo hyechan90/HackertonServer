@@ -42,7 +42,6 @@ router.post('/post/user',function(req,res) {
     passwd: req.body.passwd,
     email: req.body.email
   });
-  console.log(res);
   User.findOne({email: user.email}, function(err,result){
     if(err) throw err;
     if(result == null){//새로 만들때
@@ -94,7 +93,6 @@ router.post('/post/article',function(req,res){
   console.log(date.getHours());
   User.find({id:id},function(err,result){
     if(result!= null){
-      //for(var i=0;i<result.length;i++)
       //User.article.push(article.title, article.text);
       article.save(function(err,result){
         if(err) throw err;
