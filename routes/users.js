@@ -80,14 +80,14 @@ router.post('/post/login',function(req,res){
     if(result != null){// 만약 계정이 있을 때
       if(result.passwd != login.passwd){// 만약 비밀번호가 틀렸을 때
         console.log('Wrong password');
-        res.send(0);
+        res.status(404).send({"msg": "잘못된 비번입니다."});
       }else{
         console.log(result);
         res.send(result);
       }
     }else{
       console.log('No user');
-      res.send(null);
+      res.status(404).send({"msg": "없는 계정입니다."});
     }
   });
 })
@@ -112,10 +112,6 @@ router.post('/post/article',function(req,res){
         res.send(result);
       });
     }
-    else{
-      console.log('Same titles');
-      res.send(null);
-    }
   });
 });
 
@@ -134,7 +130,7 @@ router.post('/post/comment',function(req,res){
     }
     else{
       console.log('No article');
-      res.send(null);
+      res.status(404).send({"msg": "없는 계시물입니다."});
     }
   });
 });
@@ -152,7 +148,7 @@ router.post('/post/deleteUser',function(req,res){
       });
     }else{
       console.log('Wrong password');
-      res.send(null);
+      res.status(404).send({"msg": "잘못된 비번입니다."});
     }
   });
 });
