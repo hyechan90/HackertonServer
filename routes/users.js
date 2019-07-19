@@ -43,14 +43,21 @@ router.post('/post/user',function(req,res) {
     email: req.body.email
   });
   User.findOne({email: user.email}, function(err,result){
-    if(err) throw err;
-    if(result == null){//새로 만들때
-      user.save(function(err,result){
+    if(result == null){
+      User.findOne({id:user.id},function(err,result){
         if(err) throw err;
-        console.log(result)
-        res.send(result);
+        if(result == null){//새로 만들때
+          user.save(function(err,result){
+            if(err) throw err;
+            console.log(result)
+            res.send(result);
+          });
+        }else{// 이미 계정이 있을때
+          console.log('이미 계정이 있습니다.');
+          res.send(null);
+        }
       });
-    }else{// 이미 계정이 있을때
+    }else{
       console.log('이미 계정이 있습니다.');
       res.send(null);
     }
